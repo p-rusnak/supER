@@ -198,9 +198,17 @@ function updateSelectedRoomsList() {
                 <strong>${room.name}</strong>
                 <div style="font-size: 0.9em; color: #666;">${room.location}</div>
             </div>
-            <button class="btn btn-secondary" onclick="toggleRoomForTrip(${room.id})">Remove</button>
+            <button class="btn btn-secondary btn-remove-trip" data-room-id="${room.id}">Remove</button>
         </div>
     `).join('');
+    
+    // Add event listeners to remove buttons
+    document.querySelectorAll('.btn-remove-trip').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const roomId = parseInt(e.target.dataset.roomId);
+            toggleRoomForTrip(roomId);
+        });
+    });
 }
 
 // Generate trip plan
@@ -216,13 +224,19 @@ function generateTripPlan() {
     
     const selectedRooms = escapeRooms.filter(room => selectedRoomsForTrip.has(room.id));
     
+    // Check if selected rooms still exist
+    if (selectedRooms.length === 0) {
+        resultContainer.innerHTML = '<div class="empty-state">Please select at least one escape room to plan a trip.</div>';
+        return;
+    }
+    
     // Sort rooms by rating (highest first)
     selectedRooms.sort((a, b) => b.rating - a.rating);
     
     // Generate itinerary
     const itinerary = [];
     let currentTime = 9; // Start at 9 AM
-    const avgRoomDuration = duration / selectedRooms.size;
+    const avgRoomDuration = duration / selectedRooms.length;
     
     selectedRooms.forEach((room, index) => {
         const startTime = currentTime;
