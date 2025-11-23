@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>supER - Escape Room Ratings & Trip Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 supER</h1>
+            <p class="tagline">Escape Room Ratings & Trip Planner</p>
+        </header>
+
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="ratings">Ratings</button>
+            <button class="tab-btn" data-tab="planner">Trip Planner</button>
+        </nav>
+
+        <!-- Ratings Tab -->
+        <div id="ratings" class="tab-content active">
+            <section class="add-room">
+                <h2>Add Escape Room</h2>
+                <form id="add-room-form">
+                    <input type="text" id="room-name" placeholder="Room Name" required>
+                    <input type="text" id="room-location" placeholder="Location" required>
+                    <input type="number" id="room-difficulty" placeholder="Difficulty (1-10)" min="1" max="10" required>
+                    <button type="submit">Add Room</button>
+                </form>
+            </section>
+
+            <section class="rooms-list">
+                <h2>Escape Rooms</h2>
+                <div id="rooms-container"></div>
+            </section>
+        </div>
+
+        <!-- Trip Planner Tab -->
+        <div id="planner" class="tab-content">
+            <section class="trip-planner">
+                <h2>Plan Your Trip</h2>
+                <div class="planner-controls">
+                    <div class="selected-rooms">
+                        <h3>Selected Rooms</h3>
+                        <div id="selected-rooms-list"></div>
+                    </div>
+                    <div class="trip-settings">
+                        <label>
+                            Trip Duration (hours):
+                            <input type="number" id="trip-duration" value="8" min="1" max="24">
+                        </label>
+                        <label>
+                            Start Location:
+                            <input type="text" id="start-location" placeholder="Your starting point">
+                        </label>
+                        <button id="generate-trip" class="btn btn-primary">Generate Trip Plan</button>
+                    </div>
+                </div>
+                <div id="trip-result" class="trip-result"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
