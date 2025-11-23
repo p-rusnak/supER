@@ -267,7 +267,8 @@ function formatTime(hours) {
     const h = Math.floor(hours);
     const m = Math.round((hours - h) * 60);
     const period = h >= 12 ? 'PM' : 'AM';
-    const displayHour = h > 12 ? h - 12 : h;
+    let displayHour = h > 12 ? h - 12 : h;
+    if (displayHour === 0) displayHour = 12; // Handle midnight
     return `${displayHour}:${m.toString().padStart(2, '0')} ${period}`;
 }
 
