@@ -165,7 +165,9 @@ function rateRoom(roomId, rating) {
     });
     
     // Calculate average rating
-    room.rating = room.reviews.reduce((sum, r) => sum + r.rating, 0) / room.reviews.length;
+    if (room.reviews.length > 0) {
+        room.rating = room.reviews.reduce((sum, r) => sum + r.rating, 0) / room.reviews.length;
+    }
     
     saveToLocalStorage();
     renderRooms();
@@ -281,8 +283,8 @@ function formatTime(hours) {
     const h = Math.floor(hours);
     const m = Math.round((hours - h) * 60);
     const period = h >= 12 ? 'PM' : 'AM';
-    let displayHour = h > 12 ? h - 12 : h;
-    if (displayHour === 0) displayHour = 12; // Handle midnight
+    let displayHour = h % 12;
+    if (displayHour === 0) displayHour = 12; // Handle midnight and noon
     return `${displayHour}:${m.toString().padStart(2, '0')} ${period}`;
 }
 
